@@ -137,3 +137,10 @@ button:hover {
 .delete-form button:hover {
     background-color: #c82333;
 }
+
+.post-meta {
+    font-size: 0.9em;
+    color: #888;
+    margin-top: -1rem;
+    margin-bottom: 1rem;
+}

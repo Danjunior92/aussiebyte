@@ -113,37 +113,26 @@ db.serialize(() => {
     `CREATE TABLE IF NOT EXISTS posts (
       id INTEGER PRIMARY KEY AUTOINCREMENT,
       title TEXT NOT NULL,
-      content TEXT NOT NULL
+      content TEXT NOT NULL,
+      created_at DATETIME DEFAULT CURRENT_TIMESTAMP
     )`
   , (err) => {
     if (err) console.error('Error creating posts table:', err.message);
   });
 
-  // Drop existing comments table to rebuild with created_at
-  db.run(`DROP TABLE IF EXISTS comments`, (err) => {
-    if (err) {
-      console.error('Error dropping comments table:', err.message);
-    } else {
-      // Create comments table with created_at column
-      db.run(
-        `CREATE TABLE comments (
-          id INTEGER PRIMARY KEY AUTOINCREMENT,
-          post_id INTEGER NOT NULL,
-          author TEXT NOT NULL,
-          content TEXT NOT NULL,
-          rating INTEGER NOT NULL,
-          created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
-          FOREIGN KEY (post_id) REFERENCES posts(id)
-        )`,
-        (err) => {
-          if (err) {
-            console.error('Error creating comments table:', err.message);
-          } else {
-            console.log('Comments table recreated successfully with created_at column');
-          }
-        }
-      );
-    }
+  // Create comments table with timestamps
+  db.run(
+    `CREATE TABLE IF NOT EXISTS comments (
+      id INTEGER PRIMARY KEY AUTOINCREMENT,
+      post_id INTEGER NOT NULL,
+      author TEXT NOT NULL,
+      content TEXT NOT NULL,
+      rating INTEGER NOT NULL,
+      created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+      FOREIGN KEY (post_id) REFERENCES posts(id)
+    )`
+  , (err) => {
+    if (err) console.error('Error creating comments table:', err.message);
   });
 
 

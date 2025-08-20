@@ -23,6 +23,8 @@
         <a href="/post/<%= post.id %>">
           <h2><%= post.title %></h2>
         </a>
+        <!-- Display the post's creation date -->
+         <p class="post-meta">Published on <%= new Date(post.created_at).toLocaleDateString() %></p>
         <!-- Post body/content -->
         <p><%= post.content %></p>
       </article>
