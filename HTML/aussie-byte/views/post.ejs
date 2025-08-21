@@ -19,17 +19,15 @@
       <h2><%= post.title %></h2>
       <p><%= post.content %></p>
 
-      <% if(user) { %>
-      <!-- If user is logged in, show edit and delete options -->
-      <!-- Edit and delete controls for this post -->
-        <a href="/post/edit/<%= post.id %>">Edit Post</a>
-
-        <hr>
-        <!-- Simple delete form that POSTs to /post/delete/:id -->
-        <form action="/post/delete/<%= post.id %>" method="POST" class="delete-form">
-          <button type="submit">Delete Post</button>
-        </form>
-      <% } %>
+  <% if (user) { %>
+    <hr>
+    <div class="admin-actions">
+      <a href="/post/edit/<%= post.id %>">Edit Post</a>
+      <form class="delete-form" action="/post/delete/<%= post.id %>" method="POST">
+        <button type="submit">Delete Post</button>
+      </form>
+    </div>
+  <% } %>
     </article>
 
     <!-- Comments section -->
